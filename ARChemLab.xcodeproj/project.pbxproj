@@ -54,14 +54,22 @@
 		A60CD2B41F8042FD00843AD3 /* ARChemLab */ = {
 			isa = PBXGroup;
 			children = (
-				A60CD2B51F8042FD00843AD3 /* AppDelegate.swift */,
 				A60CD2B71F8042FD00843AD3 /* ViewController.swift */,
 				A60CD2B91F8042FD00843AD3 /* Main.storyboard */,
-				A60CD2BC1F8042FD00843AD3 /* Assets.xcassets */,
-				A60CD2BE1F8042FD00843AD3 /* LaunchScreen.storyboard */,
 				A60CD2C11F8042FD00843AD3 /* Info.plist */,
+				A60CD2C71F80439000843AD3 /* Supporting Files */,
 			);
 			path = ARChemLab;
+			sourceTree = "<group>";
+		};
+		A60CD2C71F80439000843AD3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A60CD2B51F8042FD00843AD3 /* AppDelegate.swift */,
+				A60CD2BC1F8042FD00843AD3 /* Assets.xcassets */,
+				A60CD2BE1F8042FD00843AD3 /* LaunchScreen.storyboard */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -275,6 +283,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5CJHDQBCQ2;
 				INFOPLIST_FILE = ARChemLab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.sfu.ARTris.ARChemLab;
@@ -289,6 +298,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5CJHDQBCQ2;
 				INFOPLIST_FILE = ARChemLab/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ca.sfu.ARTris.ARChemLab;
