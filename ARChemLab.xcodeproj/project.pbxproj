@@ -17,7 +17,6 @@
 		A62B0D131F80606C002AF94F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A62B0D111F805EBD002AF94F /* art.scnassets */; };
 		BD1F4C1F1F80829B00CBE8B7 /* AtomDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD1F4C1E1F80829B00CBE8B7 /* AtomDetailView.xib */; };
 		BD1F4C211F8082FB00CBE8B7 /* AtomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD1F4C201F8082FB00CBE8B7 /* AtomDetailView.swift */; };
-		BDCF562D1F811A65001BC11B /* AtomDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDCF562C1F811A65001BC11B /* AtomDictionary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +32,6 @@
 		A62B0D111F805EBD002AF94F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 		BD1F4C1E1F80829B00CBE8B7 /* AtomDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AtomDetailView.xib; sourceTree = "<group>"; };
 		BD1F4C201F8082FB00CBE8B7 /* AtomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomDetailView.swift; sourceTree = "<group>"; };
-		BDCF562C1F811A65001BC11B /* AtomDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomDictionary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +64,6 @@
 		A60CD2B41F8042FD00843AD3 /* ARChemLab */ = {
 			isa = PBXGroup;
 			children = (
-				BDCF562B1F811A36001BC11B /* AtomDictionary */,
 				BD1F4C221F80881700CBE8B7 /* AtomDetailView */,
 				A62B0D111F805EBD002AF94F /* art.scnassets */,
 				A60CD2CA1F80487700843AD3 /* Atom.swift */,
@@ -96,14 +93,6 @@
 				BD1F4C1E1F80829B00CBE8B7 /* AtomDetailView.xib */,
 			);
 			path = AtomDetailView;
-			sourceTree = "<group>";
-		};
-		BDCF562B1F811A36001BC11B /* AtomDictionary */ = {
-			isa = PBXGroup;
-			children = (
-				BDCF562C1F811A65001BC11B /* AtomDictionary.swift */,
-			);
-			path = AtomDictionary;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -180,7 +169,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDCF562D1F811A65001BC11B /* AtomDictionary.swift in Sources */,
 				BD1F4C211F8082FB00CBE8B7 /* AtomDetailView.swift in Sources */,
 				A60CD2B81F8042FD00843AD3 /* ViewController.swift in Sources */,
 				A60CD2CB1F80487700843AD3 /* Atom.swift in Sources */,

@@ -21,6 +21,7 @@ class AtomDetailView: UIView {
     @IBOutlet weak var atomMass: UILabel!
     @IBOutlet weak var atomMass2: UILabel!
     @IBOutlet weak var excessElectrons: UILabel!
+    @IBOutlet weak var mainTitle: UILabel!
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
@@ -45,6 +46,6 @@ class AtomDetailView: UIView {
         roundedView.layer.borderWidth = 0.5
         roundedView.layer.cornerRadius = 20
         roundedView.layer.masksToBounds = true
-        electronLogo.tintColor = UIColor.black
+//        electronLogo.tintColor = UIColor.black
     }
 }

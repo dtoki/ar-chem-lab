@@ -11,12 +11,11 @@ import ARKit
 import SceneKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
-    let atomicRadius = ["0.05" : Atom(name: "Hydrogen", symbol: "H", atomicMass: 1.008, atomicNumber: 1, excessElectrons: "1"),
-                        "0.1" : Atom(name: "Oxygen", symbol: "O", atomicMass: 15.999, atomicNumber: 8, excessElectrons: "2, 6"),
-                        "0.15" : Atom(name: "Nitrogen", symbol: "N", atomicMass: 14.006, atomicNumber: 7, excessElectrons: "2, 5"),
-                        "0.2" : Atom(name: "Carbon", symbol: "C", atomicMass: 12.010, atomicNumber: 6, excessElectrons: "2, 4"),]
+    let atomicRadius = ["0.05" : Atom(name: "Hydrogen", symbol: "H", atomicMass: 1.008, atomicNumber: 1, excessElectrons: "1", mainTitle:"Hydrogen(H)"),
+                        "0.1" : Atom(name: "Oxygen", symbol: "O", atomicMass: 15.999, atomicNumber: 8, excessElectrons: "2, 6",mainTitle:"Oxygen(O)"),
+                        "0.15" : Atom(name: "Nitrogen", symbol: "N", atomicMass: 14.006, atomicNumber: 7, excessElectrons: "2, 5",mainTitle:"Nitrogen(N)"),
+                        "0.2" : Atom(name: "Carbon", symbol: "C", atomicMass: 12.010, atomicNumber: 6, excessElectrons: "2, 4",mainTitle:"Carbon(C)"),]
     
-    let atomDictionary = AtomDictionary()
     @IBOutlet weak var atomDetailCard: AtomDetailView!
     @IBOutlet weak var sceneView: ARSCNView! {
         didSet{
@@ -194,9 +193,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if let atom = atomicRadius[radius] {
            atomDetailCard.atomSymbol.text = atom.symbol
             atomDetailCard.atomMass.text = "\(atom.atomicMass)"
+            atomDetailCard.atomMass2.text = "\(atom.atomicMass)"
             atomDetailCard.atomName.text = atom.name
+            atomDetailCard.atomName2.text = atom.name
             atomDetailCard.excessElectrons.text = atom.excessElectrons
             atomDetailCard.atomNumber.text = "\(atom.atomicNumber)"
+            atomDetailCard.atomNumber2.text = "\(atom.atomicNumber)"
+            atomDetailCard.mainTitle.text = atom.mainTitle
             
         }
     }

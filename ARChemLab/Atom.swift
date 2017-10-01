@@ -14,12 +14,14 @@ class  Atom  {
     let atomicMass: Double
     let atomicNumber: Int
     let excessElectrons: String
+    let mainTitle: String
     
-    init(name: String, symbol: String, atomicMass: Double, atomicNumber: Int, excessElectrons: String){
+    init(name: String, symbol: String, atomicMass: Double, atomicNumber: Int, excessElectrons: String, mainTitle: String){
         self.name = name
         self.symbol = symbol
         self.atomicMass = atomicMass
         self.atomicNumber = atomicNumber
         self.excessElectrons = excessElectrons
+        self.mainTitle = mainTitle
     }
 }
