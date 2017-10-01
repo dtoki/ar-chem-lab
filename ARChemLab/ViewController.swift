@@ -11,7 +11,6 @@ import ARKit
 import SceneKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
-
     @IBOutlet weak var sceneView: ARSCNView! {
         didSet{
             // Draging from source
@@ -41,12 +40,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.session.run(configuration)
     }
     
-    var deepNode: SCNNode?
+    var activeAtom: SCNNode?
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        deepNode = makeCube()
-        sceneView.pointOfView?.addChildNode(deepNode!)
+        for i in 0...2 {
+            let childNode = makeSphere()
+            childNode.position = SCNVector3((-1.0 + Double(i))/2, 0.0, -1.5)
+            sceneView.scene.rootNode.addChildNode(childNode)
+        }
     }
+    
+//    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+//    }
     
     func getARObject(at location: CGPoint) -> SCNNode? {
         if let hit = sceneView.hitTest(location, options: nil).first{
@@ -55,58 +60,108 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return nil
     }
     
-    func makeCube(_ scale: CGFloat = 0.3, color: UIColor = UIColor.blue.withAlphaComponent(0.3))->SCNNode{
-        let cubeGeometry = SCNBox(width: scale, height: scale, length: scale, chamferRadius: 0.0)
+    func makeSphere(_ scale: CGFloat = 0.1, color: UIColor = UIColor.blue.withAlphaComponent(0.3))->SCNNode{
+        let sphereGeometry = SCNSphere(radius: scale)
         
-        let greenMaterial = SCNMaterial()
-        greenMaterial.diffuse.contents = color
-        cubeGeometry.materials = [greenMaterial]
-        let cubeNode = SCNNode(geometry: cubeGeometry)
-        cubeNode.position = SCNVector3(0.0, 0.0, -1.0)
-        return cubeNode
+        let material = SCNMaterial()
+        let image = UIImage(named: "art.scnassets/oxyTexture.png")
+        material.diffuse.contents = image
+//        material.diffuse.contents = color
+        
+        sphereGeometry.materials = [material]
+        let sphereNode = SCNNode(geometry: sphereGeometry)
+        sphereNode.position = SCNVector3(0.0, 0.0, -1.0)
+        return sphereNode
     }
     
-    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+    func connectAtoms(from start: SCNNode, to end: SCNNode){
+        // https://stackoverflow.com/questions/30827401/cylinder-orientation-between-two-points-on-a-sphere-scenekit-quaternions-ios
+        // height of the cylinder should be the distance between points
+        let height = GLKVector3Distance(
+            SCNVector3ToGLKVector3(start.position),
+            SCNVector3ToGLKVector3(end.position)
+        ) - 0.1
+        
+        // add a container node for the cylinder to make its height run along the z axis
+        let zAlignNode = SCNNode()
+        zAlignNode.eulerAngles.x = Float.pi / 2
+        
+        // material
+        let cylinderGeometry = SCNCylinder(radius: 0.03, height: CGFloat(height))
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.brown.withAlphaComponent(0.3)
+        cylinderGeometry.materials = [material]
+        // and position the zylinder so that one end is at the local origin
+        let cylinder = SCNNode(geometry: cylinderGeometry)
+        cylinder.position.y = -height / 2
+        zAlignNode.addChildNode(cylinder)
+
+        // put the container node in a positioning node at one of the points
+        start.addChildNode(zAlignNode)
+        // and constrain the positioning node to face toward the other point
+        start.constraints = [ SCNLookAtConstraint(target: end) ]
     }
     
+    var startAtom: SCNNode?
     @objc func connectAtoms(byReactingTo panRecognizer: UIPanGestureRecognizer){
         let location = panRecognizer.location(in: sceneView)
         switch panRecognizer.state {
         case .began:
-            break
-        case .changed:
-            break
+            if let startNode = getARObject(at: location){
+                startAtom = startNode
+            }
         case .ended:
-            break
+            if startAtom != nil, let endNode = getARObject(at: location) {
+                connectAtoms(from: startAtom!, to: endNode)
+            }
         default:
             break
         }
     }
     
-    var depth: CGFloat = 1.0 {
-        didSet {
-            deepNode?.position = SCNVector3(0.0, 0.0, -depth)
-        }
-    }
+
     @objc func moveInDepth(byReactingTo pinchRecognizer: UIPinchGestureRecognizer){
         switch pinchRecognizer.state{
         case .changed, .ended:
-            depth /= pinchRecognizer.scale
+            activeAtom?.position.z /= Float(pinchRecognizer.scale)
             pinchRecognizer.scale = 1
         default:
             break
         }
     }
     
+    func moveToRootNode(_ node: SCNNode){
+        let nodeWorldTransfrom = node.worldTransform
+        node.removeFromParentNode()
+        node.transform = nodeWorldTransfrom
+        sceneView.scene.rootNode.addChildNode(node)
+    }
+    
+    func moveToCameraNode(_ node: SCNNode){
+        let newTransform = sceneView.scene.rootNode.convertTransform(node.worldTransform, to: sceneView.pointOfView)
+        node.removeFromParentNode()
+        sceneView.pointOfView?.addChildNode(node)
+        node.transform = newTransform
+    }
+    
     @objc func selectAtom(byReactingTo tapRecognizer: UITapGestureRecognizer){
         let location = tapRecognizer.location(in: sceneView)
         switch tapRecognizer.state {
         case .ended:
-            if deepNode != nil {
-                let deepNodeTransform = deepNode!.worldTransform
-                deepNode!.removeFromParentNode()
-                deepNode!.transform = deepNodeTransform
-                sceneView.scene.rootNode.addChildNode(deepNode!)
+            if let selectedObject = getARObject(at: location) {
+                // remove cylinder
+                if selectedObject.isKind(of: SCNCylinder.self){
+                    selectedObject.removeFromParentNode()
+                    break
+                }
+                activeAtom = selectedObject
+                moveToCameraNode(activeAtom!)
+            } else {
+                if activeAtom != nil {
+                    moveToRootNode(activeAtom!)
+                    activeAtom = nil
+                }
+
             }
         default:
             break
@@ -117,6 +172,4 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
     }
-    
 }
-
