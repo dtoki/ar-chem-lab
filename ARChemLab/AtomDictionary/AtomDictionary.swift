@@ -9,5 +9,8 @@
 import Foundation
 
 struct AtomDictionary{
-    var carbon: [String:String] = ["name":"Carbon","eps":"2","atomincNumber":"6","atomicMass":"12.011","symbol":"C"]
+    var carbon: [String:String] = ["name":"Carbon","eps":"2","atomincNumber":"6","atomicMass":"12.011","symbol":"C","radius":"0.15"]
+    var oxygen: [String:String] = ["name":"Carbon","eps":"2","atomincNumber":"6","atomicMass":"12.011","symbol":"C","radius":"0.1"]
+    var hydrogen: [String:String] = ["name":"Carbon","eps":"2","atomincNumber":"6","atomicMass":"12.011","symbol":"C","radius":"0.05"]
+    var nitrogen: [String:String] = ["name":"Carbon","eps":"2","atomincNumber":"6","atomicMass":"12.011","symbol":"C","radius":"0.2"]
 }

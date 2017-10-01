@@ -14,6 +14,13 @@ class AtomDetailView: UIView {
     @IBOutlet weak var roundedView: UIView!
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var atomSymbol: UILabel!
+    @IBOutlet weak var atomNumber: UILabel!
+    @IBOutlet weak var atomNumber2: UILabel!
+    @IBOutlet weak var atomName: UILabel!
+    @IBOutlet weak var atomName2: UILabel!
+    @IBOutlet weak var atomMass: UILabel!
+    @IBOutlet weak var atomMass2: UILabel!
+    @IBOutlet weak var excessElectrons: UILabel!
     /*
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

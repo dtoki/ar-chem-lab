@@ -10,12 +10,14 @@ import Foundation
 
 class  Atom  {
     let name: String
-    let atomicMass: Int
+    let symbol: String
+    let atomicMass: Double
     let atomicNumber: Int
-    let excessElectrons: Int
+    let excessElectrons: String
     
-    init(name: String, atomicMass: Int, atomicNumber: Int, excessElectrons: Int){
+    init(name: String, symbol: String, atomicMass: Double, atomicNumber: Int, excessElectrons: String){
         self.name = name
+        self.symbol = symbol
         self.atomicMass = atomicMass
         self.atomicNumber = atomicNumber
         self.excessElectrons = excessElectrons

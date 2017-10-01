@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </arscnView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RbY-6e-S4T" customClass="AtomDetailView" customModule="ARChemLab" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="620" width="375" height="47"/>
+                                <rect key="frame" x="0.0" y="610" width="375" height="57"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
@@ -29,7 +29,7 @@
                         <constraints>
                             <constraint firstItem="hDW-zA-5ku" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="07I-NA-anJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RbY-6e-S4T" secondAttribute="trailing" id="7EL-Sq-AoH"/>
-                            <constraint firstItem="RbY-6e-S4T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="600" id="BaS-Ck-j32"/>
+                            <constraint firstItem="RbY-6e-S4T" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="590" id="BaS-Ck-j32"/>
                             <constraint firstAttribute="trailing" secondItem="hDW-zA-5ku" secondAttribute="trailing" id="Bbu-Pa-flz"/>
                             <constraint firstItem="RbY-6e-S4T" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ml9-uP-OJD"/>
                             <constraint firstItem="hDW-zA-5ku" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Mxd-On-VP5"/>

@@ -11,6 +11,11 @@ import ARKit
 import SceneKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
+    let atomicRadius = ["0.05" : Atom(name: "Hydrogen", symbol: "H", atomicMass: 1.008, atomicNumber: 1, excessElectrons: "1"),
+                        "0.1" : Atom(name: "Oxygen", symbol: "O", atomicMass: 15.999, atomicNumber: 8, excessElectrons: "2, 6"),
+                        "0.15" : Atom(name: "Nitrogen", symbol: "N", atomicMass: 14.006, atomicNumber: 7, excessElectrons: "2, 5"),
+                        "0.2" : Atom(name: "Carbon", symbol: "C", atomicMass: 12.010, atomicNumber: 6, excessElectrons: "2, 4"),]
+    
     let atomDictionary = AtomDictionary()
     @IBOutlet weak var atomDetailCard: AtomDetailView!
     @IBOutlet weak var sceneView: ARSCNView! {
@@ -163,7 +168,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 activeAtom = selectedObject
                 if let anyGeo = activeAtom?.geometry as? SCNSphere {
 //                swapCardDetails(atom: activeAtom?.geometry)
-                    print(anyGeo.radius)
+                    swapCardDetails(radius: "\(anyGeo.radius)");
                 }
                  moveToCameraNode(activeAtom!)
             } else {
@@ -184,13 +189,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     // swap the card details for the padded in atom
-    func swapCardDetails(atom: Atom){
-        switch atom.name {
-        case atomDictionary.carbon["name"]!:
-            // swap the view labels
-            atomDetailCard.atomSymbol.text! = "B"
-        default:
-            break
+    func swapCardDetails(radius: String){
+        print(radius)
+        if let atom = atomicRadius[radius] {
+           atomDetailCard.atomSymbol.text = atom.symbol
+            atomDetailCard.atomMass.text = "\(atom.atomicMass)"
+            atomDetailCard.atomName.text = atom.name
+            atomDetailCard.excessElectrons.text = atom.excessElectrons
+            atomDetailCard.atomNumber.text = "\(atom.atomicNumber)"
+            
         }
     }
 }
