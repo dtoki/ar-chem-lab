@@ -71,8 +71,32 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return sphereNode
     }
     
-    func getLink(from start: SCNNode, to end: SCNNode) -> SCNNode{
+    func connectAtoms(from start: SCNNode, to end: SCNNode){
+        // https://stackoverflow.com/questions/30827401/cylinder-orientation-between-two-points-on-a-sphere-scenekit-quaternions-ios
+        // height of the cylinder should be the distance between points
+        let height = GLKVector3Distance(
+            SCNVector3ToGLKVector3(start.position),
+            SCNVector3ToGLKVector3(end.position)
+        ) - 0.1
         
+        // add a container node for the cylinder to make its height run along the z axis
+        let zAlignNode = SCNNode()
+        zAlignNode.eulerAngles.x = Float.pi / 2
+        
+        // material
+        let cylinderGeometry = SCNCylinder(radius: 0.03, height: CGFloat(height))
+        let material = SCNMaterial()
+        material.diffuse.contents = UIColor.brown.withAlphaComponent(0.3)
+        cylinderGeometry.materials = [material]
+        // and position the zylinder so that one end is at the local origin
+        let cylinder = SCNNode(geometry: cylinderGeometry)
+        cylinder.position.y = -height / 2
+        zAlignNode.addChildNode(cylinder)
+
+        // put the container node in a positioning node at one of the points
+        start.addChildNode(zAlignNode)
+        // and constrain the positioning node to face toward the other point
+        start.constraints = [ SCNLookAtConstraint(target: end) ]
     }
     
     var startAtom: SCNNode?
@@ -85,8 +109,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             }
         case .ended:
             if startAtom != nil, let endNode = getARObject(at: location) {
-                let connection = getLink(from: startAtom!, to: endNode)
-                sceneView.scene.rootNode.addChildNode(connection)
+                connectAtoms(from: startAtom!, to: endNode)
             }
         default:
             break
@@ -121,8 +144,13 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let location = tapRecognizer.location(in: sceneView)
         switch tapRecognizer.state {
         case .ended:
-            if let selectedAtom = getARObject(at: location) {
-                activeAtom = selectedAtom
+            if let selectedObject = getARObject(at: location) {
+                // remove cylinder
+                if selectedObject.isKind(of: SCNCylinder.self){
+                    selectedObject.removeFromParentNode()
+                    break
+                }
+                activeAtom = selectedObject
                 moveToCameraNode(activeAtom!)
             } else {
                 if activeAtom != nil {
