@@ -11,6 +11,8 @@ import ARKit
 import SceneKit
 
 class ViewController: UIViewController, ARSCNViewDelegate {
+    let atomDictionary = AtomDictionary()
+    @IBOutlet weak var atomDetailCard: AtomDetailView!
     @IBOutlet weak var sceneView: ARSCNView! {
         didSet{
             // Draging from source
@@ -150,12 +152,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         case .ended:
             if let selectedObject = getARObject(at: location) {
                 // remove cylinder
-                if selectedObject.isKind(of: SCNCylinder.self){
+                if selectedObject.geometry != nil, selectedObject.geometry!.isKind(of: SCNCylinder.self){
                     selectedObject.removeFromParentNode()
                     break
                 }
                 activeAtom = selectedObject
-                moveToCameraNode(activeAtom!)
+                if let anyGeo = activeAtom?.geometry as? SCNSphere {
+//                swapCardDetails(atom: activeAtom?.geometry)
+                    print(anyGeo.radius)
+                }
+                 moveToCameraNode(activeAtom!)
             } else {
                 if activeAtom != nil {
                     moveToRootNode(activeAtom!)
@@ -171,5 +177,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         sceneView.session.pause()
+    }
+    
+    // swap the card details for the padded in atom
+    func swapCardDetails(atom: Atom){
+        switch atom.name {
+        case atomDictionary.carbon["name"]!:
+            // swap the view labels
+            atomDetailCard.atomSymbol.text! = "B"
+        default:
+            break
+        }
     }
 }

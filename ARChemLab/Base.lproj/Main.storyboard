@@ -39,6 +39,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="atomDetailCard" destination="RbY-6e-S4T" id="Fng-Nm-O9g"/>
                         <outlet property="sceneView" destination="hDW-zA-5ku" id="Nwb-UI-HSH"/>
                     </connections>
                 </viewController>
