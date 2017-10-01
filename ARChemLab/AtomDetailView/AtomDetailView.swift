@@ -10,6 +10,8 @@ import UIKit
 
 class AtomDetailView: UIView {
 
+    @IBOutlet weak var electronLogo: UIImageView!
+    @IBOutlet weak var roundedView: UIView!
     @IBOutlet var contentView: UIView!
     /*
     // Only override draw() if you perform custom drawing.
@@ -31,5 +33,10 @@ class AtomDetailView: UIView {
         addSubview(contentView)
         contentView.frame = self.bounds
         contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        roundedView.layer.borderColor = UIColor.gray.cgColor
+        roundedView.layer.borderWidth = 0.5
+        roundedView.layer.cornerRadius = 20
+        roundedView.layer.masksToBounds = true
+        electronLogo.tintColor = UIColor.black
     }
 }
