@@ -43,11 +43,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     var activeAtom: SCNNode?
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        for i in 0...2 {
-            let childNode = makeSphere()
-            childNode.position = SCNVector3((-1.0 + Double(i))/2, 0.0, -1.5)
-            sceneView.scene.rootNode.addChildNode(childNode)
-        }
+        let oxygenNode = makeSphere(scale: 0.1, texturePath:  "art.scnassets/oxyTexture.png")
+        oxygenNode.position = SCNVector3(-0.5, 0.0, -1.5)
+        sceneView.scene.rootNode.addChildNode(oxygenNode)
+        let h1Node = makeSphere(scale: 0.05, texturePath:  "art.scnassets/hydrogenTexture.png")
+        h1Node.position = SCNVector3(0, 0.0, -1.5)
+        sceneView.scene.rootNode.addChildNode(h1Node)
+        let h2Node = makeSphere(scale: 0.05, texturePath:  "art.scnassets/hydrogenTexture.png")
+        h2Node.position = SCNVector3(0.5, 0.0, -1.5)
+        sceneView.scene.rootNode.addChildNode(h2Node)
     }
     
 //    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
@@ -60,11 +64,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         return nil
     }
     
-    func makeSphere(_ scale: CGFloat = 0.1, color: UIColor = UIColor.blue.withAlphaComponent(0.3))->SCNNode{
+    func makeSphere(scale: CGFloat, texturePath: String)->SCNNode{
         let sphereGeometry = SCNSphere(radius: scale)
         
         let material = SCNMaterial()
-        let image = UIImage(named: "art.scnassets/oxyTexture.png")
+        let image = UIImage(named: texturePath)
         material.diffuse.contents = image
 //        material.diffuse.contents = color
         
@@ -80,7 +84,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let height = GLKVector3Distance(
             SCNVector3ToGLKVector3(start.position),
             SCNVector3ToGLKVector3(end.position)
-        ) - 0.1
+        )
         
         // add a container node for the cylinder to make its height run along the z axis
         let zAlignNode = SCNNode()
