@@ -16,7 +16,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                         "0.15" : Atom(name: "Nitrogen", symbol: "N", atomicMass: 14.006, atomicNumber: 7, excessElectrons: "2, 5",mainTitle:"Nitrogen(N)"),
                         "0.2" : Atom(name: "Carbon", symbol: "C", atomicMass: 12.010, atomicNumber: 6, excessElectrons: "2, 4",mainTitle:"Carbon(C)"),]
     
-    @IBOutlet weak var atomDetailCard: AtomDetailView!
+    var atomDetailCard: AtomDetailView?
     @IBOutlet weak var sceneView: ARSCNView! {
         didSet{
             // Draging from source
@@ -34,10 +34,18 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         }
     }
     
+    func addInfo(){
+        let rect = CGRect(x: 0, y: view.frame.height, width: view.frame.width, height: 120)
+        atomDetailCard = AtomDetailView(frame: rect)
+        atomDetailCard?.backgroundColor = UIColor.white
+        self.view.addSubview(atomDetailCard!)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         sceneView.delegate = self
         sceneView.scene = SCNScene()
+        addInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -166,7 +174,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 }
                 activeAtom = selectedObject
                 if let anyGeo = activeAtom?.geometry as? SCNSphere {
-//                swapCardDetails(atom: activeAtom?.geometry)
                     swapCardDetails(radius: "\(anyGeo.radius)");
                 }
                  moveToCameraNode(activeAtom!)
@@ -174,6 +181,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
                 if activeAtom != nil {
                     moveToRootNode(activeAtom!)
                     activeAtom = nil
+                    swapAwayDetails()
                 }
 
             }
@@ -188,19 +196,36 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     }
     
     // swap the card details for the padded in atom
+    var isDisplayed: Bool = false
+    func swapAwayDetails(){
+        UIView.animate(withDuration: 0.3, animations: {
+            if let card = self.atomDetailCard{
+                let newY = self.view.frame.height
+                card.frame.origin = CGPoint(x: 0, y: newY)
+            }
+        })
+        isDisplayed = false
+    }
+    
     func swapCardDetails(radius: String){
-        print(radius)
         if let atom = atomicRadius[radius] {
-           atomDetailCard.atomSymbol.text = atom.symbol
-            atomDetailCard.atomMass.text = "\(atom.atomicMass)"
-            atomDetailCard.atomMass2.text = "\(atom.atomicMass)"
-            atomDetailCard.atomName.text = atom.name
-            atomDetailCard.atomName2.text = atom.name
-            atomDetailCard.excessElectrons.text = atom.excessElectrons
-            atomDetailCard.atomNumber.text = "\(atom.atomicNumber)"
-            atomDetailCard.atomNumber2.text = "\(atom.atomicNumber)"
-            atomDetailCard.mainTitle.text = atom.mainTitle
+           atomDetailCard?.atomSymbol.text = atom.symbol
+            atomDetailCard?.atomMass.text = "\(atom.atomicMass)"
+            atomDetailCard?.atomMass2.text = "\(atom.atomicMass)"
+            atomDetailCard?.atomName.text = atom.name
+            atomDetailCard?.atomName2.text = atom.name
+            atomDetailCard?.excessElectrons.text = atom.excessElectrons
+            atomDetailCard?.atomNumber.text = "\(atom.atomicNumber)"
+            atomDetailCard?.atomNumber2.text = "\(atom.atomicNumber)"
+            atomDetailCard?.mainTitle.text = atom.mainTitle
             
         }
+        UIView.animate(withDuration: 0.3, animations: {
+            if let card = self.atomDetailCard{
+                let newY = self.view.frame.height - card.frame.height
+                card.frame.origin = CGPoint(x: 0, y: newY)
+            }
+        })
+        isDisplayed = true
     }
 }
