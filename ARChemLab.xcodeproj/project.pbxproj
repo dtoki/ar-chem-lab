@@ -12,6 +12,9 @@
 		A60CD2BB1F8042FD00843AD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60CD2B91F8042FD00843AD3 /* Main.storyboard */; };
 		A60CD2BD1F8042FD00843AD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A60CD2BC1F8042FD00843AD3 /* Assets.xcassets */; };
 		A60CD2C01F8042FD00843AD3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60CD2BE1F8042FD00843AD3 /* LaunchScreen.storyboard */; };
+		A60CD2CB1F80487700843AD3 /* Atom.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD2CA1F80487700843AD3 /* Atom.swift */; };
+		A60CD2CF1F80557E00843AD3 /* AtomVis.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60CD2CE1F80557E00843AD3 /* AtomVis.swift */; };
+		A62B0D131F80606C002AF94F /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = A62B0D111F805EBD002AF94F /* art.scnassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		A60CD2BC1F8042FD00843AD3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A60CD2BF1F8042FD00843AD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A60CD2C11F8042FD00843AD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A60CD2CA1F80487700843AD3 /* Atom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Atom.swift; sourceTree = "<group>"; };
+		A60CD2CE1F80557E00843AD3 /* AtomVis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomVis.swift; sourceTree = "<group>"; };
+		A62B0D111F805EBD002AF94F /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +60,9 @@
 		A60CD2B41F8042FD00843AD3 /* ARChemLab */ = {
 			isa = PBXGroup;
 			children = (
+				A62B0D111F805EBD002AF94F /* art.scnassets */,
+				A60CD2CA1F80487700843AD3 /* Atom.swift */,
+				A60CD2CE1F80557E00843AD3 /* AtomVis.swift */,
 				A60CD2B71F8042FD00843AD3 /* ViewController.swift */,
 				A60CD2B91F8042FD00843AD3 /* Main.storyboard */,
 				A60CD2C11F8042FD00843AD3 /* Info.plist */,
@@ -132,6 +141,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A60CD2C01F8042FD00843AD3 /* LaunchScreen.storyboard in Resources */,
+				A62B0D131F80606C002AF94F /* art.scnassets in Resources */,
 				A60CD2BD1F8042FD00843AD3 /* Assets.xcassets in Resources */,
 				A60CD2BB1F8042FD00843AD3 /* Main.storyboard in Resources */,
 			);
@@ -145,7 +155,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A60CD2B81F8042FD00843AD3 /* ViewController.swift in Sources */,
+				A60CD2CB1F80487700843AD3 /* Atom.swift in Sources */,
 				A60CD2B61F8042FD00843AD3 /* AppDelegate.swift in Sources */,
+				A60CD2CF1F80557E00843AD3 /* AtomVis.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
